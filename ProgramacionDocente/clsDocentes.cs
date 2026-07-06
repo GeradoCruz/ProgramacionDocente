@@ -88,7 +88,7 @@ namespace ProgramacionDocente
                             {
                                 case 0://insertar uno
                                     //insertamos en la tabla tblusuarios
-                                    string sqlInsUser = "INSERT INTO tblusuarios(vchnombreUsuario, vchpassword, vchperfil, vchestado) VALUES(@nomUser, MD5(@pass), @perfil, 'Activo');SELECT LAST_INSERT_ID();";
+                                    string sqlInsUser = "INSERT INTO tblusuarios(nombreUsuario, password, perfil, estado) VALUES(@nomUser, MD5(@pass), @perfil, 'Activo');SELECT LAST_INSERT_ID();";
 
                                     int nuevoIdUsuario = 0;
                                     using (comando = new MySqlCommand(sqlInsUser, conexion, transaccion))
@@ -119,7 +119,7 @@ namespace ProgramacionDocente
 
                                 case 1:  //ACTUALIZAR
                                     //PASO A:Actualizar la tabla de usuarios utilizando el ID que recuperamos en el clic
-                                    string sqlupdUser = "UPDATE tblusuarios SET vchnombreUsuario = @nomUser, vchpassword=MD5(@pass),vchperfil = @perfil" + " WHERE intidUsuario = @idUsuario;";
+                                    string sqlupdUser = "UPDATE tblusuarios SET nombreUsuario = @nomUser, password=MD5(@pass),perfil = @perfil" + " WHERE idUsuario = @idUsuario;";
                                     using (comando = new MySqlCommand(sqlupdUser, conexion, transaccion))
                                     {
                                         comando.Parameters.AddWithValue("@idUsuario", idUsuario);
