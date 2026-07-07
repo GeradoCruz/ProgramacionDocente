@@ -78,15 +78,15 @@ namespace ProgramacionDocente
                 docentes = new clsDocentes();
 
                 docentes.Clave = int.Parse(txtClave.Text);
-                docentes.NombreDocente = string.IsNullOrEmpty(txtNombreDocente.Text)?null: txtNombreDocente.Text;
-                docentes.Puesto = string.IsNullOrEmpty(txtPuesto.Text)?null:txtPuesto.Text;
-                docentes.Telefono = string.IsNullOrEmpty(txtPuesto.Text)?null: txtTelefono.Text;
-                docentes.Correo = string.IsNullOrEmpty(txtCorreo.Text)?null:txtCorreo.Text;
+                docentes.NombreDocente = string.IsNullOrEmpty(txtNombreDocente.Text) ? null : txtNombreDocente.Text;
+                docentes.Puesto = string.IsNullOrEmpty(txtPuesto.Text) ? null : txtPuesto.Text;
+                docentes.Telefono = string.IsNullOrEmpty(txtPuesto.Text) ? null : txtTelefono.Text;
+                docentes.Correo = string.IsNullOrEmpty(txtCorreo.Text) ? null : txtCorreo.Text;
 
                 //Propiedades del bloque de usuario
                 docentes.IdUsuario = idUsuario;
-                docentes.NombreUsuario = string.IsNullOrEmpty(txtUsuario.Text)?null:txtUsuario.Text;
-                docentes.Password = string.IsNullOrEmpty(txtPassword.Text)?null:txtPassword.Text;
+                docentes.NombreUsuario = string.IsNullOrEmpty(txtUsuario.Text) ? null : txtUsuario.Text;
+                docentes.Password = string.IsNullOrEmpty(txtPassword.Text) ? null : txtPassword.Text;
                 docentes.Perfil = cmbPerfil.Text;
 
                 string msg = "";
@@ -123,6 +123,31 @@ namespace ProgramacionDocente
             docentes.LimpiarPanel(pnlDocente);
             docentes.LimpiarPanel(pnlUsuario);
             txtClave.Focus();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            var respuesta = MessageBox.Show($"¿Estás seguro de que deseas eliminar este Docente?", "ADVERTENCIA!", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
+            if (respuesta == DialogResult.Yes)
+            {
+                try
+                {
+
+                    docentes = new clsDocentes();
+
+                    docentes.Clave = idClave;
+                    docentes.IdUsuario = idUsuario;
+
+                    string resultado = docentes.Eliminar();
+
+                    MessageBox.Show(resultado, "Registro eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cargarGrid();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al eliminar el registro: " + ex.Message, "Error operacional", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 
