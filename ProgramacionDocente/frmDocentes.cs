@@ -63,9 +63,56 @@ namespace ProgramacionDocente
                 cmbPerfil.Text = dgvDocentes.CurrentRow.Cells["Perfil"].Value.ToString();
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Error al mapear los datos seleccionados" + ex.Message);
+            }
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int tipoOperacion = idClave == 0 ? 0 : 1;
+
+                docentes = new clsDocentes();
+
+                docentes.Clave = int.Parse(txtClave.Text);
+                docentes.NombreDocente = txtNombreDocente.Text;
+                docentes.Puesto = txtPuesto.Text;
+                docentes.Telefono = txtTelefono.Text;
+                docentes.Correo = txtCorreo.Text;
+
+                //Propiedades del bloque de usuario
+                docentes.IdUsuario = idUsuario;
+                docentes.NombreUsuario = txtUsuario.Text;
+                docentes.Password = txtPassword.Text;
+                docentes.Perfil = cmbPerfil.Text;
+
+                string msg = "";
+
+                //confirmacion de carrera
+                if (tipoOperacion == 1)
+                {
+                    var resp = MessageBox.Show("¿Confirmar que desea actualizar los datos de este docente?", "ALERTA", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (resp == DialogResult.Yes)
+                    {
+                        msg = docentes.GuardarActualizar(tipoOperacion);
+                        MessageBox.Show(msg, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    msg = docentes.GuardarActualizar(tipoOperacion);
+                    MessageBox.Show(msg, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                cargarGrid();
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudieron guardar los datos:" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
