@@ -142,7 +142,7 @@ namespace ProgramacionDocente
 
                                         comando.ExecuteNonQuery();
                                     }
-                                    msg = "Los datos del docente se actuaqlizaron correctamente.";
+                                    msg = "Los datos del docente se actualizaron correctamente.";
                                     break;
                             }
                             //si todo se ejecuto sin errores en el switch, confirmamos los cambios en le BD 
