@@ -78,15 +78,15 @@ namespace ProgramacionDocente
                 docentes = new clsDocentes();
 
                 docentes.Clave = int.Parse(txtClave.Text);
-                docentes.NombreDocente = txtNombreDocente.Text;
-                docentes.Puesto = txtPuesto.Text;
-                docentes.Telefono = txtTelefono.Text;
-                docentes.Correo = txtCorreo.Text;
+                docentes.NombreDocente = string.IsNullOrEmpty(txtNombreDocente.Text)?null: txtNombreDocente.Text;
+                docentes.Puesto = string.IsNullOrEmpty(txtPuesto.Text)?null:txtPuesto.Text;
+                docentes.Telefono = string.IsNullOrEmpty(txtPuesto.Text)?null: txtTelefono.Text;
+                docentes.Correo = string.IsNullOrEmpty(txtCorreo.Text)?null:txtCorreo.Text;
 
                 //Propiedades del bloque de usuario
                 docentes.IdUsuario = idUsuario;
-                docentes.NombreUsuario = txtUsuario.Text;
-                docentes.Password = txtPassword.Text;
+                docentes.NombreUsuario = string.IsNullOrEmpty(txtUsuario.Text)?null:txtUsuario.Text;
+                docentes.Password = string.IsNullOrEmpty(txtPassword.Text)?null:txtPassword.Text;
                 docentes.Perfil = cmbPerfil.Text;
 
                 string msg = "";
@@ -114,6 +114,15 @@ namespace ProgramacionDocente
             {
                 MessageBox.Show("No se pudieron guardar los datos:" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            idClave = 0;
+            idUsuario = 0;
+            docentes.LimpiarPanel(pnlDocente);
+            docentes.LimpiarPanel(pnlUsuario);
+            txtClave.Focus();
         }
     }
 

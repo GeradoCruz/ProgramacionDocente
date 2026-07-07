@@ -164,5 +164,16 @@ namespace ProgramacionDocente
             }
             return msg;
         }//finaliza el metodo
+
+        public void LimpiarPanel(Panel panelDestino)
+        {
+            foreach (Control control in panelDestino.Controls)
+            {
+                if (control is TextBox)
+                {
+                    ((TextBox)control).Clear();
+                }
+            }
+        }
     }
 }
